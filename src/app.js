@@ -41,25 +41,28 @@ app.get('/help',(req,res)=>{
 app.get('/weather', (req, res) => {
   
     if (!req.query.address) {
-       return res.send({ error: 'please provide appropriate address' })
+      res.send({ error: 'please provide appropriate address' })
     } 
-    geocode(req.query.address, (error, data) => {
-        if (error) {
-          return res.send({error})
-        }
-
-        forecast(data.latitude, data.longitude, callback = (error, forecastdata={}) => {
-
+    else{
+        geocode(req.query.address, (error, data) => {
             if (error) {
-                return res.send({error})
+              return res.send({error})
             }
-            res.send({
-                forecast:forecastdata,
-                location:data.location,
-                address:req.query.address
+    
+            forecast(data.latitude, data.longitude, callback = (error, forecastdata={}) => {
+    
+                if (error) {
+                    return res.send({error})
+                }
+                res.send({
+                    forecast:forecastdata,
+                    location:data.location,
+                    address:req.query.address
+                })
             })
         })
-    })
+    }
+    
         
   
 })
