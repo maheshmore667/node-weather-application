@@ -14,7 +14,7 @@ weatherForm.addEventListener('submit',(e)=>{
   e.preventDefault();
   const location=seacrh.value;
     console.log(location);
-    fetch('http://localhost:4000/weather?address='+ location).then((response)=>{
+    fetch('/weather?address='+ location).then((response)=>{
     response.json().then((error,data)=>{
         if(error){
        console.log(error)
